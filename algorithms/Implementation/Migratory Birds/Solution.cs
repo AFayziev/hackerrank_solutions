@@ -16,34 +16,28 @@ class Solution {
 
     // Complete the migratoryBirds function below.
     static int migratoryBirds(int[] ar) {
-        // TO DO: we can optimize further by using an array
-        // but the runtime and space would still be the same
-        // runtime: O(n) 
-        // space: O(1)
-        Dictionary<int, int> occurrences = new Dictionary<int, int>() {
-            { 1, 0 },
-            { 2, 0 },
-            { 3, 0 },
-            { 4, 0 },
-            { 5, 0 }
-        };
+
+        int[] occurrences = new int[5];
         
         for(int i = 0; i < ar.Length; i++)
         {
-            occurrences[ar[i]]++;
+            occurrences[ar[i] - 1]++; // types are 1-5, indexes are 0-4
         }
         
-        int maxOccurredType = 1; // in case we have all 1, the lowest type is 1
+        // in case we have all occurred the same number of times, 
+        // the lowest type is 1 which is index 0
+        int maxOccurredType = 0; 
         
-        for (int i = 2; i <= 5; i++)
+        for (int i = 1; i < 5; i++)
         {
             int current = occurrences[i];
 
             if (current > occurrences[maxOccurredType])
                 maxOccurredType = i;
         }
+
         
-        return maxOccurredType;
+        return maxOccurredType + 1;
     }
 
     static void Main(string[] args) {
